@@ -10,3 +10,9 @@ file(GLOB_RECURSE HEADER_FILES include/*.h include/*.hpp)
 
 # Add executable target with source files listed in SOURCE_FILES variable
 add_executable(Eon ${SOURCE_FILES} ${HEADER_FILES})
+
+target_link_libraries(Eon
+    d3d11
+    dxgi
+    d3dcompiler
+)

@@ -1,8 +1,8 @@
 #define UNICODE
-#include <Window/Win32/Window.h>
+#include "Window/Win32/Window.h"
 #include <Windows.h>
 #include <stdexcept>
-#include <d3d12.h>
+#include "GraphicsEngine/GraphicsEngine.h"
 
 static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -42,9 +42,12 @@ eon::Window::Window()
         throw std::runtime_error("CreateWindowEx failed.");
 
     ShowWindow(static_cast<HWND>(m_handle), SW_SHOW);
+
+    eon::GraphicsEngine::get()->init();
 }
 
 eon::Window::~Window()
 {
     DestroyWindow(static_cast<HWND>(m_handle));
+    eon::GraphicsEngine::get()->release();
 }
