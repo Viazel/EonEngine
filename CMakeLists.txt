@@ -12,6 +12,11 @@ file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 
 # Ajouter tous les fichiers trouvés à l'exécutable
 add_executable(EonEngine ${SOURCES})
+
+if (WIN32)
+    target_compile_definitions(EonEngine PRIVATE UNICODE _UNICODE)
+endif()
+
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
 set_target_properties(EonEngine PROPERTIES
     WIN32_EXECUTABLE TRUE
