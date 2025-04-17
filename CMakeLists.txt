@@ -1,18 +1,19 @@
-cmake_minimum_required(VERSION 3.13)  # CMake version check
-project(Eon)               # Create project "simple_example"
-set(CMAKE_CXX_STANDARD 14)            # Enable c++14 standard
+cmake_minimum_required(VERSION 3.16)
+project(EonEngine)
 
-include_directories(include/)
+# Configurer le standard C++ 17
+set(CMAKE_CXX_STANDARD 17)
 
-# Add main.cpp file of the project root directory as a source file
-file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
-file(GLOB_RECURSE HEADER_FILES include/*.h include/*.hpp)
+# Spécifie le chemin pour les fichiers d'entête
+include_directories(${CMAKE_SOURCE_DIR}/src)
 
-# Add executable target with source files listed in SOURCE_FILES variable
-add_executable(Eon ${SOURCE_FILES} ${HEADER_FILES})
+# Trouver tous les fichiers source (.cpp) et d'en-tête (.h) dans src et sous-dossiers
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 
-target_link_libraries(Eon
-    d3d11
-    dxgi
-    d3dcompiler
+# Ajouter tous les fichiers trouvés à l'exécutable
+add_executable(EonEngine ${SOURCES})
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+set_target_properties(EonEngine PROPERTIES
+    WIN32_EXECUTABLE TRUE
 )
+endif()
